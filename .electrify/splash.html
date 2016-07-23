@@ -1,0 +1,22 @@
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+    img {
+      height: 100%;
+      margin: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <img id="splash" alt="logo" style="pointer-events: none;" />
+</body>
+<script>
+  splash = document.getElementById('splash')
+  image = 'file://' + __dirname + '/splash.png'
+  splash.setAttribute('src', image)
+</script>
+</html

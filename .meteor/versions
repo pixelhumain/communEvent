@@ -11,6 +11,7 @@ aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.5
 amplify@1.0.0
+arboleya:electrify@2.1.4
 autoupdate@1.2.11
 babel-compiler@6.8.5
 babel-runtime@0.1.9_1
