@@ -5,6 +5,7 @@ import { _ } from 'meteor/underscore';
 
 export const News = new Meteor.Collection("news", {idGeneration : 'MONGO'});
 
+
 export const SchemasNewsRest =   new SimpleSchema({
   text : {
     type : String
@@ -132,11 +133,11 @@ News.deny({
 
 
 
-  //collection
+//collection
 if(Meteor.isClient){
   import { Photosimg } from './client/photosimg.js'
 }
-  import { Citoyens } from './citoyens.js'
+import { Citoyens } from './citoyens.js'
 
 News.helpers({
   authorNews () {
@@ -144,8 +145,8 @@ News.helpers({
   },
   photoNews () {
     if(this.media && this.media.content && this.media.content.imageId){
-    return Photosimg.find({_id:this.media.content.imageId});
-  }
+      return Photosimg.find({_id:this.media.content.imageId});
+    }
   },
   likesCount () {
     if (this.voteUp && this.voteUpCount) {

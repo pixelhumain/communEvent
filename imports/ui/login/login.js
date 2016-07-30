@@ -44,7 +44,6 @@ Template.login.events({
         pageSession.set( 'error', null );
         Router.go('/');
       }else{
-        //console.log(error);
         pageSession.set( 'loading-logging', false );
         pageSession.set( 'error', error.reason );
         return null;

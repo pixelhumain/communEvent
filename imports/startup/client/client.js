@@ -32,6 +32,15 @@ Session.setDefault('geolocate', true);
 Session.setDefault('radius', 25000);
 Session.setDefault('GPSstart', false);
 
+if(Meteor._localStorage.getItem('radius')){
+  Session.set('radius', parseInt(Meteor._localStorage.getItem('radius')));
+}
+
+if(Meteor._localStorage.getItem('geolocate')){
+  Session.set('geolocate', JSON.parse(Meteor._localStorage.getItem('geolocate')));
+}
+
+
 let language = window.navigator.userLanguage || window.navigator.language;
 if (language.indexOf('-') !== -1)
 language = language.split('-')[0];
@@ -125,7 +134,17 @@ Template.registerHelper("urlImageCommunecter", function () {
   return Meteor.settings.public.urlimage;
 });
 
+Template.registerHelper("remoteUrl", function () {
+  if(Meteor.settings.public.remoteUrl){
+  return Meteor.settings.public.remoteUrl;
+  }
+});
 
+Template.registerHelper("DDPConnection", function () {
+  if(Meteor.settings.public.remoteUrl){
+  return Meteor.connection;
+  }
+});
 
 Template.registerHelper("SchemasFollowRest", SchemasFollowRest);
 Template.registerHelper("SchemasInviteAttendeesEventRest", SchemasInviteAttendeesEventRest);
@@ -134,17 +153,20 @@ Template.registerHelper("SchemasEventsRest", SchemasEventsRest);
 
 
 let success = function (state) {
+
   if(state === 'Enabled') {
     //console.log("GPS Is Enabled");
     Session.set('GPSstart', true);
     Location.locate(function(pos){
       Session.set('geo',pos);
       //console.log(pos);
+      //alert(pos);
     }, function(err){
       //console.log(err.message);
       Session.set('GPSstart', false);
       Session.set('geo',null);
       Session.set('geoError',err.message);
+      //alert(err.message);
     });
   }else if(state==="Disabled"){
     //console.log("GPS Is Disabled");
@@ -183,8 +205,10 @@ Tracker.autorun(function() {
     if(geolocate){
       Location.startWatching(function(pos){
         //console.log("Got a position!", pos);
+        //alert(pos);
       }, function(err){
         //console.log("Oops! There was an error", err);
+      //alert(JSON.stringify(err));
       });
     }else{
       Location.stopWatching();

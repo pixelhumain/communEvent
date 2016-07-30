@@ -11,6 +11,7 @@ Template.settings.events({
   "change #radius": function(e, t) {
     let value = parseInt(t.find('#radius').value);
     Session.set('radius',  value);
+    Meteor._localStorage.setItem('radius', value);
     //clear cache
     listEventsSubs.clear();
     return;
@@ -22,10 +23,12 @@ Template.settings.events({
   'click #geolocate': function(e, t) {
     if(t.find('#geolocate').checked){
       Session.set('geolocate', true);
+      Meteor._localStorage.setItem('geolocate', 'true');
       //clear cache
       listEventsSubs.clear();
     }else{
       Session.set('geolocate',  false);
+      Meteor._localStorage.setItem('geolocate', false);
     }
     return;
   },

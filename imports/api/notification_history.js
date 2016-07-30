@@ -7,14 +7,14 @@ if(Meteor.isClient){
   //collection
   import { News } from './news.js'
   import { Citoyens } from './citoyens.js'
-  
-NotificationHistory.helpers({
-  authorNotify : function () {
-    return Citoyens.findOne({_id:new Mongo.ObjectID(this.author)});
-  },
-  news : function () {
-    return News.findOne({_id:new Mongo.ObjectID(this.newsId)})
-  },
-});
+
+  NotificationHistory.helpers({
+    authorNotify : function () {
+      return Citoyens.findOne({_id:new Mongo.ObjectID(this.author)});
+    },
+    news : function () {
+      return News.findOne({_id:new Mongo.ObjectID(this.newsId)})
+    },
+  });
 
 }
