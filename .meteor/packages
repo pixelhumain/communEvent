@@ -27,7 +27,6 @@ webapp@1.3.11
 http@1.2.9
 sha@1.0.8
 reactive-var@1.0.10
-crosswalk@1.6.2
 standard-minifier-css@1.2.0
 standard-minifier-js@1.2.0
 force-ssl@1.0.12
@@ -46,7 +45,6 @@ meteoric:ionic
 reywood:publish-composite
 cfs:gridfs
 cfs:s3
-mrt:graphicsmagick
 cfs:standard-packages
 cfs:ejson-file
 aldeed:simple-schema
@@ -56,7 +54,6 @@ dburles:collection-helpers
 aldeed:autoform
 djedi:sanitize-html
 rzymek:moment-locale-fr
-cfs:graphicsmagick
 tap:i18n
 tap:i18n-ui
 gwendall:simple-schema-i18n
@@ -65,7 +62,6 @@ fourseven:scss
 webtempest:animate
 meteoric:autoform-ionic
 meteorhacks:subs-manager
-meteorhacks:kadira
 dschulz:jquery-qrcode
 pauloborges:mapbox@2.2.3_2
 gwendall:autoform-i18n
@@ -74,5 +70,5 @@ djabatav:geolocation-plus
 tmeasday:publish-counts
 froatsnook:request
 froatsnook:valid-email
-arboleya:electrify
 shell-server
+arboleya:electrify

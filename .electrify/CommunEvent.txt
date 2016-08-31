@@ -1,0 +1,10 @@
+En s'appuyant sur un réseau sociétal (au service de la société) regroupant les acteurs d'un territoire, "Communecter" propose des outils numériques innovants et disponibles pour tous afin de créer ensemble un territoire connecté qui nous ressemble.
+Tout cela gratuitement, dans le respect des données de chacun, car Communecter est un bien commun fait pour et par chacun d’entre nous, porté par une association à but non lucratif.
+
+Plus qu'une simple application Communecter se présente sous différentes formes :
+Une projet open source
+Une communauté riche et diversifiée
+Un site web qui vous tend les bras
+Une application mobile encore en cours
+Des interfaces tierces contribuant ou non à une base de donnée commune
+Des instances indépendantes mais inter-opérantes par leurs sémantiques communes
