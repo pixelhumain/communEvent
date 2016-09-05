@@ -5,7 +5,7 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Router } from 'meteor/iron:router';
 import { $ } from 'meteor/jquery';
-import { Counts } from 'meteor/tmeasday:publish-counts';
+import { Counts } from '../../api/counts.js';
 //import { MeteoricCamera } from 'meteor/meteoric:camera';
 import { MeteorCameraUI } from 'meteor/aboire:camera-ui';
 import { AutoForm } from 'meteor/aldeed:autoform';
@@ -69,7 +69,7 @@ Template.newsList.helpers({
     return  countNews > Session.get('limit');
   },
   countNews () {
-    //console.log(Router.current().params._id)
+    //console.log(`countNews.${Router.current().params._id}`);
     return Counts.get(`countNews.${Router.current().params._id}`);
   },
   isVote () {
