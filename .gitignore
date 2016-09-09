@@ -3,8 +3,8 @@
 mapphotos.bfproject
 config.push.json
 settings.json
-electron-settings.json
 settings-prod.json
+electron-settings.json
 electron-settings-prod.json
 cordova.facebook.json
 private/*

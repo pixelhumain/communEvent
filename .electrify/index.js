@@ -2,9 +2,9 @@ var app = require('app')
 var path = require('path')
 var BrowserWindow = require('browser-window')
 var electrify = require('electrify')(__dirname)
-var ipcRenderer = require('electron').ipcRenderer
+//var ipcRenderer = require('electron').ipcRenderer
 var shell = require('electron').shell
-var Menu = require('menu')
+//var Menu = require('menu')
 var dialog = require('electron').dialog
 
 // Windows
@@ -12,7 +12,7 @@ var splash = null
 var window = null
 
 // Menubar
-var template = [
+/*var template = [
   {
     label: 'Edit',
     submenu: [
@@ -114,7 +114,7 @@ var template = [
     ]
   }
 ]
-
+*/
 if (process.platform === 'darwin') {
   var name = require('electron').app.getName()
   template.unshift({
@@ -173,8 +173,8 @@ if (process.platform === 'darwin') {
 
 app.on('ready', function () {
   // Menu
-  var menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  //var menu = Menu.buildFromTemplate(template)
+  //Menu.setApplicationMenu(menu)
 
   // Splashscreen
   splash = new BrowserWindow({
@@ -192,10 +192,13 @@ app.on('ready', function () {
   electrify.start(function (meteor_root_url) {
     // creates a new electron window
     window = new BrowserWindow({
-      width: 360, height: 640,
-      minWidth: 360, minHeight: 640,
+      width: 1100, height: 800,
+      minWidth: 360, minHeight: 600,
+      maxWidth: 1200, maxHeight: 800,
       title: 'CommunEvent',
       icon: path.join(__dirname, 'icon.png'),
+      autoHideMenuBar: true,
+      resizable: true,
       webPreferences: {nodeIntegration: false,experimentalFeatures:true}
     })
 
@@ -254,7 +257,7 @@ app.on('will-quit', function terminate_and_quit (event) {
 // });
 //
 
-electrify.methods({
+/*electrify.methods({
   'openExternal': function (url, done) {
     shell.openExternal(url)
     done(null)
@@ -315,4 +318,4 @@ electrify.methods({
     setTimeout(notif.close.bind(notif), 5000);
     done(null, notification.title);
   }
-})
+})*/
