@@ -7,6 +7,19 @@
   {{> camera}}
 </template>
 
+<template name="scanner_page">
+  {{#ionModal customTemplate=true}}
+      <div class="bar bar-header bar-stable">
+        <button data-dismiss="modal" type="button" class="button button-clear stopscan">Annuler</button>
+        <h2 class="title">Scanner QR code</h2>
+      </div>
+      <div class="content has-header overflow-scroll">
+        <div id="reader" style="width:100%;height:100%">
+         </div>
+  </div>
+  {{/ionModal}}
+</template>
+
 <template name="layout">
   {{#ionBody}}
 
@@ -30,7 +43,7 @@
         <h2>{{currentUser.profile.pixelhumain.name}}</h2>
         <p>{{currentUser.profile.pixelhumain.email}}</p>
         {{/if}}
-      </div>      
+      </div>
       <a class="item item-dark item-icon-right" href="#" data-ion-modal="eventsAdd" data-ion-menu-close>{{_ "Add event"}} {{> ionIcon icon="android-add-circle"}}</a>
       {{#if isCordova}}
       <a class="item item-dark item-icon-right" href="{{pathFor 'contacts'}}" data-ion-menu-close>{{_ "Invitations contacts"}} {{> ionIcon icon="android-contacts"}}</a>
@@ -38,6 +51,8 @@
       <a class="item item-dark item-icon-right" href="{{pathFor 'notifications'}}" data-ion-menu-close>{{_ "Notifications"}} <span class="badge badge-balanced">{{#if notificationsCount}}{{notificationsCount}}{{else}}0{{/if}}</span></a>
       {{#if isCordova}}
       <a class="item item-dark item-icon-right scanner" href="" data-ion-menu-close>{{_ "scanner QR"}} {{> ionIcon icon="ios-barcode"}}</a>
+      {{else}}
+      <a class="item item-dark item-icon-right" href="" data-ion-modal="scanner_page" data-ion-menu-close>{{_ "scanner QR"}} {{> ionIcon icon="ios-barcode"}}</a>
       {{/if}}
       {{> settings}}
       {{/if}}
