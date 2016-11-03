@@ -176,6 +176,13 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 			children: [
 				{
 					find: function(scopeD) {
+						return Events.find({
+							parentId: new Mongo.ObjectID(scopeD._id)
+						});
+					}
+				},
+				{
+					find: function(scopeD) {
 						return Citoyens.find({
 							_id: new Mongo.ObjectID(scopeD.creator)
 						}, {

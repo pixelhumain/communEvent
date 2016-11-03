@@ -184,7 +184,7 @@ Meteor.methods({
     doc.parentType='events';
     doc.childType="citoyens";
     if(typeof email !== 'undefined'){
-    doc.childId=Citoyens.findOne({email:email})._id._str;
+    doc.childId=Citoyens.findOne({email:email.toLowerCase()})._id._str;
     }else{
       if (typeof inviteUserId !== 'undefined' && inviteUserId) {
         doc.childId=inviteUserId;

@@ -4,8 +4,8 @@ App.info({
   description: 'communecter event',
   author: 'thomas',
   email: 'thomas.craipeau@gmail.com',
-  version: '0.0.24',
-  buildNumber: '321'
+  version: '0.0.25',
+  buildNumber: '322'
 });
 
 App.setPreference('android-targetSdkVersion', '23');

@@ -7,7 +7,8 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "meteor-node-stubs": "~0.2.0"
+    "meteor-node-stubs": "~0.2.0",
+    "bcrypt": "^0.8.7"
   },
   "repository": {
     "type": "git",
