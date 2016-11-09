@@ -2,7 +2,7 @@
 *~
 mapphotos.bfproject
 config.push.json
-settings.json
+/settings.json
 settings-prod.json
 electron-settings.json
 electron-settings-prod.json
