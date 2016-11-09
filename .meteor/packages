@@ -60,7 +60,7 @@ meteoric:autoform-ionic
 reactive-dict@1.1.8
 meteorhacks:subs-manager
 sha@1.0.9
-meteorhacks:kadira
+#meteorhacks:kadira
 dschulz:jquery-qrcode
 pauloborges:mapbox@2.2.3_2
 gwendall:autoform-i18n
@@ -75,3 +75,7 @@ force-ssl@1.0.13
 froatsnook:request
 froatsnook:valid-email
 shell-server@0.2.1
+omega:meteor-desktop-watcher
+omega:meteor-desktop-bundler
+omega:meteor-desktop-localstorage
+tap:i18n-bundler

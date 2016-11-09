@@ -4,7 +4,8 @@
   "description": "communevent",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "desktop": "meteor-desktop"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0",
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/aboire/communEvent/issues"
   },
-  "homepage": "https://github.com/aboire/communEvent#readme"
+  "homepage": "https://github.com/aboire/communEvent#readme",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "meteor-desktop": "^0.1.0"
+  }
 }

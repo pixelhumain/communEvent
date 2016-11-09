@@ -8,4 +8,9 @@ electron-settings.json
 electron-settings-prod.json
 cordova.facebook.json
 private/*
+.desktop-installer/
+.desktop-package/
+public/i18n/
 node_modules/
+
+version.desktop

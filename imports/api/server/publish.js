@@ -177,7 +177,7 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 				{
 					find: function(scopeD) {
 						return Events.find({
-							parentId: new Mongo.ObjectID(scopeD._id)
+							parentId: scopeD._id._str
 						});
 					}
 				},

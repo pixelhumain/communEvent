@@ -26,7 +26,7 @@
     <a href="{{pathFor 'newsDetail' _id=scope._id._str newsId=_id._str scope=target.type}}" class="item animated in {{#if photoNews}}item-thumbnail-left{{else}}{{#if imageDoc authorNews._id._str}}item-avatar{{/if}}{{/if}}">
 
       {{#each photoNews}}
-      <img src="{{this.url store='photosThumb' uploading='/default.png' storing='/default.png'}}"  />
+      <img src="{{urlImageDesktop}}{{this.url store='photosThumb' uploading='/default.png' storing='/default.png'}}"  />
       {{else}}
       {{#if imageDoc}}
       {{> imgDoc imageDoc=imageDoc resized="80x80"}}
@@ -229,7 +229,7 @@
     <a href="{{pathFor 'newsDetail' _id=scope._id._str newsId=_id._str scope=target.type}}" class="item animated out {{#if photoNews}}item-thumbnail-left{{/if}}">
 
       {{#each photoNews}}
-      <img src="{{this.url store='photosThumb' uploading='/default.png' storing='/default.png'}}"  />
+      <img src="{{urlImageDesktop}}{{this.url store='photosThumb' uploading='/default.png' storing='/default.png'}}"  />
       {{/each}}
 
       <h2>{{name}}</h2>
