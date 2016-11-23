@@ -8,8 +8,9 @@
     "desktop": "meteor-desktop"
   },
   "dependencies": {
-    "meteor-node-stubs": "~0.2.0",
-    "bcrypt": "^0.8.7"
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^0.8.7",
+    "meteor-node-stubs": "~0.2.0"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,6 @@
   },
   "homepage": "https://github.com/aboire/communEvent#readme",
   "devDependencies": {
-    "devtron": "^1.4.0",
-    "meteor-desktop": "^0.1.0"
+    "meteor-desktop": "^0.2.0"
   }
 }

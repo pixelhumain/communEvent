@@ -5,7 +5,7 @@ Package.describe({
 });
 
 Cordova.depends({
-  'cordova-plugin-camera':'2.2.0'
+  'cordova-plugin-camera':'2.3.0'
 });
 
 Package.onUse(function(api) {

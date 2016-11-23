@@ -1,6 +1,6 @@
 {
     "name": "CommunEvent",
-    "version": "0.0.18",
+    "version": "0.0.26",
     "projectName": "communevent",
     "devTools": true,
     "devtron": true,
@@ -41,7 +41,7 @@
         "win": {
             "title": "CommunEvent",
             "authors": "Thomas Craipeau",
-            "target": "squirrel"
+            "target": ["squirrel","nsis"]
         },
         "squirrelWindows": {
             "iconUrl": "https://github.com/wojtkowiak/meteor-desktop/blob/beta/scaffold/assets/meteor.ico?raw=true",

@@ -13,7 +13,7 @@ jquery@1.11.10                  # Helpful client-side library
 tracker@1.1.1                 # Meteor's client-side reactive programming library
 
 es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
-ecmascript@0.5.9              # Enable ECMAScript2015+ syntax in app code
+ecmascript@0.6.1              # Enable ECMAScript2015+ syntax in app code
 
 accounts-ui@1.1.9
 
@@ -75,7 +75,7 @@ force-ssl@1.0.13
 froatsnook:request
 froatsnook:valid-email
 shell-server@0.2.1
-omega:meteor-desktop-watcher
-omega:meteor-desktop-bundler
+omega:meteor-desktop-watcher@=0.2.0
+omega:meteor-desktop-bundler@=0.2.0
 omega:meteor-desktop-localstorage
 tap:i18n-bundler

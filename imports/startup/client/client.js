@@ -23,6 +23,10 @@ import { SchemasNewsRest } from '../../api/news.js';
 
 Meteor.startup(function () {
 
+  window.HTML.isConstructedObject = function(x) {
+  return _.isObject(x) && !$.isPlainObject(x)
+};
+
   if (Meteor.isCordova) {
     window.alert = navigator.notification.alert;
     window.confirm = navigator.notification.confirm;
