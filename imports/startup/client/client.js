@@ -23,6 +23,10 @@ import { SchemasNewsRest } from '../../api/news.js';
 
 Meteor.startup(function () {
 
+  window.HTML.isConstructedObject = function(x) {
+  return _.isObject(x) && !$.isPlainObject(x)
+};
+
   if (Meteor.isCordova) {
     window.alert = navigator.notification.alert;
     window.confirm = navigator.notification.confirm;
@@ -133,6 +137,10 @@ Template.registerHelper("urlImageCommunecter", function () {
   return Meteor.settings.public.urlimage;
 });
 
+Template.registerHelper("urlImageDesktop", function () {
+  console.log(Meteor.settings.public.remoteUrl);
+  return Meteor.isDesktop ? Meteor.settings.public.remoteUrl : '';
+});
 
 
 Template.registerHelper("SchemasFollowRest", SchemasFollowRest);
@@ -143,29 +151,29 @@ Template.registerHelper("SchemasEventsRest", SchemasEventsRest);
 
 let success = function (state) {
   if(state === 'Enabled') {
-    //console.log("GPS Is Enabled");
+    console.log("GPS Is Enabled");
     Session.set('GPSstart', true);
     Location.locate(function(pos){
       Session.set('geo',pos);
       //console.log(pos);
     }, function(err){
-      //console.log(err.message);
+      console.log(err.message);
       Session.set('GPSstart', false);
       Session.set('geo',null);
       Session.set('geoError',err.message);
     });
   }else if(state==="Disabled"){
-    //console.log("GPS Is Disabled");
+    console.log("GPS Is Disabled");
     Session.set('GPSstart', false);
     Session.set('geo',null);
     Session.set('geoError','GPS Is Disabled');
   }else if(state=='NotDetermined' || state=='Restricted'){
-    //console.log("Never asked user for auhtorization");
+    console.log("Never asked user for auhtorization");
     Session.set('GPSstart', false);
     Session.set('geo',null);
     Session.set('geoError','Never asked user for auhtorization');
   }else if(state==='Denied'){
-    //console.log("Asked User for authorization but they denied");
+    console.log("Asked User for authorization but they denied");
     Session.set('GPSstart', false);
     Session.set('geo',null);
     Session.set('geoError','Asked User for authorization but they denied');

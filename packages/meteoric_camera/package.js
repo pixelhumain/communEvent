@@ -5,7 +5,7 @@ Package.describe({
 });
 
 Cordova.depends({
-  'cordova-plugin-camera':'2.2.0'
+  'cordova-plugin-camera':'2.3.0'
 });
 
 Package.onUse(function(api) {
@@ -29,10 +29,17 @@ Package.onUse(function(api) {
   ], ['web.browser']);
 
   api.addFiles([
+    'camera-cordova.js',
+    'camera.less',
+    'templates/errorMessage.html',
+    'templates/permissionDenied.html',
+    'templates/viewfinder.html',
+    'templates/viewfinder.js'
+  ], ['web.cordova'])
+
+  api.addFiles([
     "i18n/en.i18n.json",
     "i18n/fr.i18n.json"
   ], ["client", "server"]);
 
-
-  api.addFiles('camera-cordova.js', ['web.cordova']);
 });
