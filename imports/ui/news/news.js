@@ -133,8 +133,8 @@ Template.newsList.events({
     let scopeId=Session.get('scopeId');
     let scope=Session.get('scope');
     let options = {
-      width: 500,
-      height: 500,
+      width: 640,
+      height: 480,
       quality: 75
     };
     MeteorCameraUI.getPicture(options,function (error, data) {
@@ -158,8 +158,8 @@ Template.newsList.events({
       let scopeId=Session.get('scopeId');
       let scope=Session.get('scope');
       let options = {
-        width: 500,
-        height: 500,
+        width: 640,
+        height: 480,
         quality: 75
       };
       MeteorCameraUI.getPicture(options,function (error, data) {
