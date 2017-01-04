@@ -78,14 +78,56 @@ if (Meteor.isDesktop) {
 } else {
   MeteoricCamera.getPicture = function (options, callback) {
     // if options are not passed
+    var longSideMax;
     if (! callback) {
       callback = options;
       options = {};
     }
 
-    var success = function (data) {
-      callback(null, "data:image/jpeg;base64," + data);
+    if(options && options.width){
+      longSideMax = options.width;
+    }
+
+    var success = function(data) {
+      var tempImg = new Image();
+      tempImg.src = "data:image/jpeg;base64," + data;
+      tempImg.onload = function() {
+        // Get image size and aspect ratio.
+        var targetWidth = tempImg.width;
+        var targetHeight = tempImg.height;
+        var aspect = tempImg.width / tempImg.height;
+
+        // Calculate shorter side length, keeping aspect ratio on image.
+        // If source image size is less than given longSideMax, then it need to be
+        // considered instead.
+        if (tempImg.width > tempImg.height) {
+          longSideMax = Math.min(tempImg.width, longSideMax);
+          targetWidth = longSideMax;
+          targetHeight = longSideMax / aspect;
+        }
+        else {
+          longSideMax = Math.min(tempImg.height, longSideMax);
+          targetHeight = longSideMax;
+          targetWidth = longSideMax * aspect;
+        }
+
+        // Create canvas of required size.
+        var canvas = document.createElement('canvas');
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        var ctx = canvas.getContext("2d");
+        // Take image from top left corner to bottom right corner and draw the image
+        // on canvas to completely fill into.
+        ctx.drawImage(this, 0, 0, tempImg.width, tempImg.height, 0, 0, targetWidth, targetHeight);
+
+        callback(null, canvas.toDataURL("image/jpeg"));
+      };
     };
+
+    /*var success = function (data) {
+      callback(null, "data:image/jpeg;base64," + data);
+    };*/
 
     var failure = function (error) {
       callback(new Meteor.Error("cordovaError", error));
@@ -94,12 +136,13 @@ if (Meteor.isDesktop) {
     navigator.camera.getPicture(success, failure,
       _.extend(options, {
         quality: options.quality || 60,
-        targetWidth: options.width || 640,
-        targetHeight: options.height || 480,
+        //targetWidth: options.width || 640,
+        //targetHeight: options.height || 480,
         destinationType: Camera.DestinationType.DATA_URL,
         correctOrientation: true,
         encodingType: Camera.EncodingType.JPEG,
-        allowEdit: true
+        //allowEdit: true,
+        //saveToPhotoAlbum: true
       })
     );
   };

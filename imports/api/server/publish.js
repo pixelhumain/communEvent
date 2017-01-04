@@ -171,16 +171,10 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 		}
 		return {
 			find: function() {
+				Counts.publish(this, `countSous.${scopeId}`, Events.find({parentId:scopeId}));
 				return Events.find({_id:new Mongo.ObjectID(scopeId)});
 			},
 			children: [
-				{
-					find: function(scopeD) {
-						return Events.find({
-							parentId: scopeD._id._str
-						});
-					}
-				},
 				{
 					find: function(scopeD) {
 						return Citoyens.find({
@@ -209,6 +203,28 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 				}
 			]}
 		});
+
+		Meteor.publishComposite('listeventSous', function(scopeId) {
+			check(scopeId, String);
+			if (!this.userId) {
+				return;
+			}
+			return {
+				find: function() {
+					Counts.publish(this, `countSous.${scopeId}`, Events.find({parentId:scopeId}));
+						return Events.find({parentId:scopeId});
+				},
+				children: [
+					{
+						find: function(event) {
+							return Documents.find({
+								id : event._id._str,
+								contentKey : "profil"
+							});
+						}
+					}
+				]}
+			});
 
 		Meteor.publishComposite('listAttendees', function(scopeId) {
 			check(scopeId, String);

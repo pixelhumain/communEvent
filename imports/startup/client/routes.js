@@ -90,6 +90,19 @@ Router.map(function() {
     }
   });
 
+  this.route("listeventSous", {
+    template: "listeventSous",
+    path: 'events/sous/:_id',
+    loadingTemplate: 'loading',
+    data: function() {
+      Session.set('scopeId', this.params._id);
+      return null;
+    },
+    waitOn: function() {
+      //return Meteor.subscribe('listeventSous', this.params._id);
+    }
+  });
+
   this.route("listAttendees", {
     template: "listAttendees",
     path: 'events/attendees/:_id',

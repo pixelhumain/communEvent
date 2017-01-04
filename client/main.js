@@ -4,6 +4,7 @@ import '../imports/ui/pixel.js';
 import '../imports/ui/login/login.js';
 
 import '../imports/ui/events/attendees/attendees.js';
+import '../imports/ui/events/sousevent/sousevent.js';
 import '../imports/ui/events/list.js';
 
 import '../imports/ui/mapevent/mapevent.js';

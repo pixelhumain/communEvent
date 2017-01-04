@@ -61,6 +61,14 @@ export const PostalAddress = new SimpleSchema({
     autoform: {
       type: "select"
     }
+  },
+  depName: {
+    type : String,
+    optional: true
+  },
+  regionName: {
+    type : String,
+    optional: true
   }
 });
 

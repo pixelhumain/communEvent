@@ -26,7 +26,7 @@
     <a href="{{pathFor 'newsDetail' _id=scope._id._str newsId=_id._str scope=target.type}}" class="item animated in {{#if photoNews}}item-thumbnail-left{{else}}{{#if imageDoc authorNews._id._str}}item-avatar{{/if}}{{/if}}">
 
       {{#each photoNews}}
-      <img src="{{urlImageDesktop}}{{this.url store='photosThumb' uploading='/default.png' storing='/default.png'}}"  />
+      <img src="{{urlImageDesktop}}{{this.url store='photosLarge' uploading='/default.png' storing='/default.png'}}"  />
       {{else}}
       {{#if imageDoc}}
       {{> imgDoc imageDoc=imageDoc resized="80x80"}}
@@ -187,11 +187,12 @@
     </div>
 
     <div class="item item-text-wrap">
-      <p>{{description}}</p>
+      <p>{{{shortDescription}}}</p>
       <p>{{address.postalCode}} {{address.addressLocality}}</p>
     </div>
     <div class="item tabs tabs-secondary tabs-icon-left">
       {{#if geo}}<a class="tab-item" href="{{pathFor 'mapWithEvent' _id=_id._str}}"><i class="icon ion-ios-location"></i> {{_ "distance"}} : {{distance geo}} </a>{{/if}}
+      {{#if issousEvents}}<a class="tab-item" href="{{pathFor 'listeventSous' _id=_id._str}}"><i class="icon ion-calendar"></i> {{countsousEvents}} {{_ "events"}} </a>{{/if}}
     </div>
   </div>
 </template>
