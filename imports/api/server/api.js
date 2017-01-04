@@ -6,6 +6,7 @@ export const apiCommunecter = {};
 
 const callPixelRest = (token,method,controller,action,post) => {
   post["X-Auth-Token"] = token;
+  //console.log(post);
   let responsePost = HTTP.call( method, Meteor.settings.endpoint+'/communecter/'+controller+'/'+action, {
     headers:{
       'X-Auth-Token' : token,
@@ -16,6 +17,7 @@ const callPixelRest = (token,method,controller,action,post) => {
       jar: true
     }
   });
+  console.log(responsePost);
   if(responsePost && responsePost.data && responsePost.data.result){
     return responsePost;
   }else{

@@ -189,9 +189,37 @@
   {{/if}}
   {{> afQuickField name='geoPosLatitude' type="hidden" value=latitude}}
   {{> afQuickField name='geoPosLongitude' type="hidden" value=longitude}}
+  {{> afQuickField name='regionName' type="hidden" value=regionName}}
+  {{> afQuickField name='depName' type="hidden" value=depName}}
   {{/if}}
 </template>
 
+<template name="eventsFieldsElement">
+  {{> afQuickField name='name'}}
+  {{> afQuickField name='description' rows=8}}
+  {{> afQuickField name='type'}}
+  {{> afQuickField name='allDay'}}
+  {{> afQuickField name='startDate' type="datetime-local"}}
+  {{> afQuickField name='endDate' type="datetime-local"}}
+  {{> afQuickField name='address.addressCountry' autocomplete="off" value=country }}
+  {{#if currentFieldValue "address.addressCountry"}}
+  {{> afQuickField name='address.postalCode' value=postalCode autocomplete="off"}}
+  {{#if currentFieldValue "address.postalCode"}}
+  {{#if optionsInsee}}
+  {{> afQuickField name='address.codeInsee' options=optionsInsee value=city}}
+  {{> afQuickField name='address.addressLocality' type="hidden" value=cityName}}
+  {{else}}
+  <div class="item item-text-wrap assertive"><i class="icon ion-android-alert"></i> {{_ "Error not postal code match"}}</div>
+  {{/if}}
+  {{/if}}
+  {{> afQuickField name='address.streetAddress' autocomplete="off"}}
+  {{#if latlng}}
+  {{> map}}
+  {{/if}}
+  {{> afQuickField name='geo.latitude' type="hidden" value=latitude}}
+  {{> afQuickField name='geo.longitude' type="hidden" value=longitude}}
+  {{/if}}
+</template>
 
 <template name="map">
   <div id="map" class="map"></div>

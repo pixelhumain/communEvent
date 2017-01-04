@@ -245,6 +245,8 @@ Template.eventsAdd.onCreated(function () {
   pageSession.set('country', null);
   pageSession.set('city', null);
   pageSession.set('cityName', null);
+  pageSession.set('regionName', null);
+  pageSession.set('depName', null);
   pageSession.set('geoPosLatitude', null);
   pageSession.set('geoPosLongitude', null);
   this.subscribe('lists');
@@ -256,6 +258,8 @@ Template.eventsEdit.onCreated(function () {
   pageSession.set('country', null);
   pageSession.set('city', null);
   pageSession.set('cityName', null);
+  pageSession.set('regionName', null);
+  pageSession.set('depName', null);
   pageSession.set('geoPosLatitude', null);
   pageSession.set('geoPosLongitude', null);
 });
@@ -283,6 +287,12 @@ Template.eventsEdit.helpers({
     eventEdit.cityName = event.address.addressLocality;
     if(event && event.address && event.address.streetAddress){
       eventEdit.streetAddress = event.address.streetAddress;
+    }
+    if(event && event.address && event.address.regionName){
+      eventEdit.regionName = event.address.regionName;
+    }
+    if(event && event.address && event.address.depName){
+      eventEdit.depName = event.address.depName;
     }
     eventEdit.geoPosLatitude = event.geo.latitude;
     eventEdit.geoPosLongitude = event.geo.longitude;
@@ -334,6 +344,12 @@ Template.eventsFields.helpers({
   },
   cityName (){
     return pageSession.get('cityName') || AutoForm.getFieldValue('cityName');
+  },
+  regionName (){
+    return pageSession.get('regionName') || AutoForm.getFieldValue('regionName');
+  },
+  depName (){
+    return pageSession.get('depName') || AutoForm.getFieldValue('depName');
   }
 });
 
@@ -344,6 +360,8 @@ Template.eventsFields.onRendered(function() {
   pageSession.set('country', null);
   pageSession.set('city', null);
   pageSession.set('cityName', null);
+  pageSession.set('regionName', null);
+  pageSession.set('depName', null);
   pageSession.set('geoPosLatitude', null);
   pageSession.set('geoPosLongitude', null);
 
@@ -361,6 +379,8 @@ Template.eventsFields.onRendered(function() {
             pageSession.set('country', result.country);
             pageSession.set('city', result.insee);
             pageSession.set('cityName', result.postalCodes[0].name);
+            pageSession.set('regionName', result.regionName);
+            pageSession.set('depName', result.depName);
             pageSession.set('geoPosLatitude', result.geo.latitude);
             pageSession.set('geoPosLongitude', result.geo.longitude);
           }
@@ -402,6 +422,8 @@ Template.eventsFields.events({
     let insee = Cities.findOne({insee:tmpl.$(e.currentTarget).val()});
     pageSession.set( 'geoPosLatitude', insee.geo.latitude);
     pageSession.set( 'geoPosLongitude', insee.geo.longitude);
+    pageSession.set( 'regionName', insee.regionName);
+    pageSession.set( 'depName', insee.depName);
     pageSession.set('cityName', e.currentTarget.options[e.currentTarget.selectedIndex].text);
     //console.log(insee.geo.latitude);
     //console.log(insee.geo.longitude);

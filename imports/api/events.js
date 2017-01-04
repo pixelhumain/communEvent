@@ -13,6 +13,8 @@ import { Countries_SELECT,Countries_SELECT_LABEL,PostalAddress,GeoCoordinates,Ge
 //collection
 import { Lists } from './lists.js'
 
+SimpleSchema.debug = true;
+
 export const SchemasEventsRest = new SimpleSchema({
     name : {
       type : String
@@ -57,6 +59,18 @@ export const SchemasEventsRest = new SimpleSchema({
       }
     },
     cityName: {
+      type : String,
+      autoform: {
+        type: "hidden"
+      }
+    },
+    regionName: {
+      type : String,
+      autoform: {
+        type: "hidden"
+      }
+    },
+    depName: {
       type : String,
       autoform: {
         type: "hidden"

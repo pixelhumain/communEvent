@@ -387,7 +387,7 @@ Meteor.methods({
 
     return photoret._id;
   },
-  insertEvent (doc){
+  insertEventOld (doc){
     //type : organizations / projects > organizerId
     check(doc, SchemasEventsRest);
     if (!this.userId) {
@@ -408,7 +408,65 @@ Meteor.methods({
     var retour = apiCommunecter.postPixel("event","save",doc);
     return retour;
   },
-  updateEvent (modifier,documentId){
+  insertEvent (doc){
+    //type : organizations / projects > organizerId
+    check(doc, SchemasEventsRest);
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+    if(doc.startDate){
+      doc.startDate=moment(doc.startDate).format();
+    }
+    if(doc.endDate){
+      doc.endDate=moment(doc.endDate).format();
+    }
+    if(!doc.organizerId){
+      doc.organizerId=this.userId;
+    }
+    if(!doc.organizerType){
+      doc.organizerType="citoyens";
+    }
+
+
+    const event = {};
+    event.name = doc.name;
+    event.type = doc.type;
+    event.description = doc.description;
+    event.allDay = doc.allDay;
+    event.startDate = doc.startDate;
+    event.endDate = doc.endDate;
+    event.organizerId = doc.organizerId;
+    event.organizerType = doc.organizerType;
+    event.key='event';
+    event.collection='events';
+    event.preferences={};
+    event.preferences['isOpenData']=true;
+    event.preferences['isOpenEdition']=true;
+    event.address = {};
+    event.address['addressCountry'] = doc.country;
+    event.address['postalCode'] = doc.postalCode;
+    event.address['codeInsee'] = doc.city;
+    event.address['addressLocality'] = doc.cityName;
+    event.address['regionName'] = doc.regionName;
+    event.address['depName'] = doc.depName;
+    if(doc.streetAddress){
+      event.address['streetAddress'] = doc.streetAddress;
+    }
+    if(doc.geoPosLatitude && doc.geoPosLongitude){
+      event.geo = {};
+      event.geo['latitude'] = doc.geoPosLatitude;
+      event.geo['longitude'] = doc.geoPosLongitude;
+      event.geo['@type'] = 'GeoCoordinates';
+      event.geoPosition = {};
+      event.geoPosition['type'] = 'Point';
+      event.geoPosition['coordinates'] = [parseFloat(doc.geoPosLongitude),parseFloat(doc.geoPosLatitude)];
+    }
+    console.log(event);
+
+    var retour = apiCommunecter.postPixel("element","save",event);
+    return retour;
+  },
+  updateEventOld (modifier,documentId){
     check(modifier["$set"], SchemasEventsRest);
 
     if (!this.userId) {
@@ -431,6 +489,67 @@ Meteor.methods({
     }
     modifier["$set"].eventId=documentId;
     var retour = apiCommunecter.postPixel("event","update",modifier["$set"]);
+    return retour;
+  },
+  updateEvent (modifier,documentId){
+    check(modifier["$set"], SchemasEventsRest);
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+    if (!Events.findOne({_id:new Mongo.ObjectID(documentId)}).isAdmin()) {
+      throw new Meteor.Error("not-authorized");
+    }
+    if(modifier["$set"].startDate){
+      modifier["$set"].startDate=moment(modifier["$set"].startDate).format();
+    }
+    if(modifier["$set"].endDate){
+      modifier["$set"].endDate=moment(modifier["$set"].endDate).format();
+    }
+    if(!modifier["$set"].organizerId){
+      modifier["$set"].organizerId=this.userId;
+    }
+    if(!modifier["$set"].organizerType){
+      modifier["$set"].organizerType="citoyens";
+    }
+
+
+    const event = {};
+    event.id = documentId;
+    event.name = modifier["$set"].name;
+    event.type = modifier["$set"].type;
+    event.description = modifier["$set"].description;
+    event.allDay = modifier["$set"].allDay;
+    event.startDate = modifier["$set"].startDate;
+    event.endDate = modifier["$set"].endDate;
+    event.organizerId = modifier["$set"].organizerId;
+    event.organizerType = modifier["$set"].organizerType;
+    event.key='event';
+    event.collection='events';
+    event.preferences={};
+    event.preferences['isOpenData']=true;
+    event.preferences['isOpenEdition']=true;
+    event.address = {};
+    event.address['addressCountry'] = modifier["$set"].country;
+    event.address['postalCode'] = modifier["$set"].postalCode;
+    event.address['codeInsee'] = modifier["$set"].city;
+    event.address['addressLocality'] = modifier["$set"].cityName;
+    event.address['regionName'] = modifier["$set"].regionName;
+    event.address['depName'] = modifier["$set"].depName;
+    if(modifier["$set"].streetAddress){
+      event.address['streetAddress'] = modifier["$set"].streetAddress;
+    }
+    if(modifier["$set"].geoPosLatitude && modifier["$set"].geoPosLongitude){
+      event.geo = {};
+      event.geo['latitude'] = modifier["$set"].geoPosLatitude;
+      event.geo['longitude'] = modifier["$set"].geoPosLongitude;
+      event.geo['@type'] = 'GeoCoordinates';
+      event.geoPosition = {};
+      event.geoPosition['type'] = 'Point';
+      event.geoPosition['coordinates'] = [parseFloat(modifier["$set"].geoPosLongitude),parseFloat(modifier["$set"].geoPosLatitude)];
+    }
+    console.log(event);
+
+    var retour = apiCommunecter.postPixel("element","save",event);
     return retour;
   },
   photoEvents (photo,str,idType) {

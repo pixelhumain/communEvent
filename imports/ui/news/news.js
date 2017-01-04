@@ -72,11 +72,25 @@ Template.newsList.helpers({
     //console.log(Router.current().params._id)
     return Counts.get(`countNews.${Router.current().params._id}`);
   },
+  countsousEvents () {
+    return Counts.get(`countSous.${Router.current().params._id}`);
+  },
+  issousEvents () {
+    return Counts.get(`countSous.${Router.current().params._id}`) > 0;
+  },
   isVote () {
     return  this.type == "vote";
   },
 });
 
+Template.listCard.helpers({
+  countsousEvents () {
+    return Counts.get(`countSous.${Router.current().params._id}`);
+  },
+  issousEvents () {
+    return Counts.get(`countSous.${Router.current().params._id}`) > 0;
+  }
+});
 
 Template.newsList.events({
   "click .saveattendees-link" (evt) {
@@ -133,8 +147,8 @@ Template.newsList.events({
     let scopeId=Session.get('scopeId');
     let scope=Session.get('scope');
     let options = {
-      width: 500,
-      height: 500,
+      width: 640,
+      height: 480,
       quality: 75
     };
     MeteorCameraUI.getPicture(options,function (error, data) {
@@ -158,8 +172,8 @@ Template.newsList.events({
       let scopeId=Session.get('scopeId');
       let scope=Session.get('scope');
       let options = {
-        width: 500,
-        height: 500,
+        width: 640,
+        height: 480,
         quality: 75
       };
       MeteorCameraUI.getPicture(options,function (error, data) {
@@ -219,8 +233,8 @@ Template.newsList.events({
             let scope=Session.get('scope');
 
             let options = {
-              width: 500,
-              height: 500,
+              width: 640,
+              height: 480,
               quality: 75
             };
 
