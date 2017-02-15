@@ -75,7 +75,7 @@ force-ssl@1.0.13
 froatsnook:request
 froatsnook:valid-email
 shell-server@0.2.1
-omega:meteor-desktop-watcher@=0.2.2
-omega:meteor-desktop-bundler@=0.2.2
+omega:meteor-desktop-watcher
+omega:meteor-desktop-bundler
 omega:meteor-desktop-localstorage
 tap:i18n-bundler
