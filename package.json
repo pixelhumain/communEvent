@@ -1,6 +1,6 @@
 {
   "name": "communevent",
-  "version": "0.0.28",
+  "version": "0.0.30",
   "description": "communevent",
   "private": true,
   "scripts": {
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/aboire/communEvent#readme",
   "devDependencies": {
-    "meteor-desktop": "^0.5.3"
+    "meteor-desktop": "^0.6.1"
   }
 }
