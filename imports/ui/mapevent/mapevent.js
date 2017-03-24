@@ -135,7 +135,7 @@ const initialize = ( element, zoom, features ) => {
   let city = Session.get('city');
   let geo = Location.getReactivePosition();
   if(geo && geo.latitude){
-    L.mapbox.accessToken = 'pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2lreWRkNzNrMDA0dXc3bTA1MHkwbXdscCJ9.NbvsJ14y2bMWWdGqucR_EQ';
+    L.mapbox.accessToken = Meteor.settings.public.mapbox;
     map = L.mapbox.map(element,'mapbox.streets').setView(new L.LatLng(parseFloat(geo.latitude), parseFloat(geo.longitude)), zoom);
     /*var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
