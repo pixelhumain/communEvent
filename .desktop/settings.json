@@ -22,7 +22,7 @@
     "uglify": true,
     "plugins": {
         "meteor-desktop-splash-screen": {
-            "version": "0.1.0",
+            "version": "0.3.0",
 "imagePath": "splash.png",
             "windowSettings": {
                 "width": 800,
