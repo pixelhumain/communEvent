@@ -59,7 +59,9 @@ Template.changePosition.onRendered(function () {
       var onOk=IonPopup.confirm({title:TAPi18n.__('Position'),template:TAPi18n.__('Utiliser la position de cette ville'),
       onOk: function(){
         Session.set( 'city', self);
-        Session.set('radius', false);
+        if(self.geoShape && self.geoShape.coordinates){
+          Session.set('radius', false);          
+        }
         Session.set('geolocate',  false);
         Location.setMockLocation({
           latitude : self.geo.latitude,

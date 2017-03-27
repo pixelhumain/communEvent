@@ -133,33 +133,54 @@ News.deny({
 
 
   //collection
-if(Meteor.isClient){
-  import { Photosimg } from './client/photosimg.js'
-}
-  import { Citoyens } from './citoyens.js'
-
-News.helpers({
-  authorNews () {
-    return Citoyens.findOne({_id:new Mongo.ObjectID(this.author)});
-  },
-  photoNews () {
-    if(this.media && this.media.content && this.media.content.imageId){
-    return Photosimg.find({_id:this.media.content.imageId});
+  if(Meteor.isClient){
+    import { Photosimg } from './client/photosimg.js'
+    import { Citoyens } from './citoyens.js'
+    News.helpers({
+      authorNews () {
+        return Citoyens.findOne({_id:new Mongo.ObjectID(this.author)});
+      },
+      photoNews () {
+        if(this.media && this.media.content && this.media.content.imageId){
+        return Photosimg.find({_id:this.media.content.imageId});
+      }
+      },
+      likesCount () {
+        if (this.voteUp && this.voteUpCount) {
+          return this.voteUpCount;
+        }
+        return 0;
+      },
+      dislikesCount () {
+        if (this.voteDown && this.voteDownCount) {
+          return this.voteDownCount;
+        }
+        return 0;
+      },
+      isAuthor () {
+        return this.author === Meteor.userId();
+      }
+    });
+  }else{
+    import { Citoyens } from './citoyens.js'
+    News.helpers({
+      authorNews () {
+        return Citoyens.findOne({_id:new Mongo.ObjectID(this.author)});
+      },
+      likesCount () {
+        if (this.voteUp && this.voteUpCount) {
+          return this.voteUpCount;
+        }
+        return 0;
+      },
+      dislikesCount () {
+        if (this.voteDown && this.voteDownCount) {
+          return this.voteDownCount;
+        }
+        return 0;
+      },
+      isAuthor () {
+        return this.author === Meteor.userId();
+      }
+    });
   }
-  },
-  likesCount () {
-    if (this.voteUp && this.voteUpCount) {
-      return this.voteUpCount;
-    }
-    return 0;
-  },
-  dislikesCount () {
-    if (this.voteDown && this.voteDownCount) {
-      return this.voteDownCount;
-    }
-    return 0;
-  },
-  isAuthor () {
-    return this.author === Meteor.userId();
-  }
-});

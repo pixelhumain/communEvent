@@ -32,7 +32,7 @@ Template.map.onCreated(function () {
 
 Template.map.onRendered(function () {
   var self = this;
-  L.mapbox.accessToken = 'pk.eyJ1IjoiY29tbXVuZWN0ZXIiLCJhIjoiY2lreWRkNzNrMDA0dXc3bTA1MHkwbXdscCJ9.NbvsJ14y2bMWWdGqucR_EQ';
+  L.mapbox.accessToken = Meteor.settings.public.mapbox;
   let map = L.mapbox.map('map','mapbox.streets');
   var marker;
   self.autorun(function(c) {
@@ -66,16 +66,17 @@ Template.listEvents.onCreated(function () {
   self.autorun(function(c) {
     let geo = Location.getReactivePosition();
     let radius = Session.get('radius');
+    console.log(radius);
     if(radius && geo && geo.latitude){
-      //console.log('sub list events geo radius');
+      console.log('sub list events geo radius');
       let latlng = {latitude: parseFloat(geo.latitude), longitude: parseFloat(geo.longitude)};
       let handle = listEventsSubs.subscribe('citoyenEvents',latlng,radius);
           self.ready.set(handle.ready());
     }else{
-      //console.log('sub list events city');
+      console.log('sub list events city');
       let city = Session.get('city');
       if(city && city.geoShape && city.geoShape.coordinates){
-        let handle = listEventsSubs.subscribe('citoyenEvents',city.geoShape.coordinates);
+        let handle = listEventsSubs.subscribe('citoyenEvents',city.geoShape);
             self.ready.set(handle.ready());
       }
     }

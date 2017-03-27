@@ -133,12 +133,11 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 						$maxDistance: radius
 					}}},{_disableOplog: true});
 				}else{
-					//console.log("polygon");
 					return Events.find({"geoPosition": {
 						$geoIntersects: {
 							$geometry:{
-								"type" : "Polygon",
-								"coordinates" : latlng
+								"type" : latlng.type,
+								"coordinates" : latlng.coordinates
 							}
 						}
 					}

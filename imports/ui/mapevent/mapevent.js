@@ -36,7 +36,7 @@ Template.mapevent.onCreated(function () {
       console.log('sub list events city');
       let city = Session.get('city');
       if(city && city.geoShape && city.geoShape.coordinates){
-        let handle = listEventsSubs.subscribe('citoyenEvents',city.geoShape.coordinates);
+        let handle = listEventsSubs.subscribe('citoyenEvents',city.geoShape);
         self.ready.set(handle.ready());
       }
     }
