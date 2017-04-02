@@ -38,7 +38,13 @@ Template.newsDetail.events({
     event.preventDefault();
     var self = this;
     if(Meteor.isCordova){
-    PhotoViewer.show(this.url());
+      if(this.moduleId){
+        const url = `${Meteor.settings.public.urlimage}/upload/${moduleId}/${folder}/${name}`;
+        PhotoViewer.show(url);
+      }else{
+        PhotoViewer.show(this.url());
+      }
+
     }
 }
 });
