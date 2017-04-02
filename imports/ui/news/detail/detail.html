@@ -26,6 +26,13 @@
       {{/each}}
     </div>
     {{/if}}
+    {{#if photoNewsAlbums}}
+    <div class="item item-body">
+      {{#each photoNewsAlbums}}
+    <img src="{{urlImageCommunecter}}/upload/{{moduleId}}/{{folder}}/{{name}}" class="full-image photo-viewer" />
+      {{/each}}
+    </div>
+    {{/if}}
     {{#if text}}
     <div class="item item-body">
       {{text}}

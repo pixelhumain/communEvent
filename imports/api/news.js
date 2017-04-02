@@ -27,6 +27,14 @@ export const SchemasNewsRest =   new SimpleSchema({
     type: String,
     optional: true
   },
+  "media.countImages" : {
+    type: String,
+    optional: true
+  },
+  "media.images" : {
+    type: [String],
+    optional: true
+  },
   "media.content" : {
     type: Object,
     optional: true
@@ -57,7 +65,6 @@ export const SchemasNewsRest =   new SimpleSchema({
   }
 });
 
-
 export const SchemasNews =   new SimpleSchema({
   text : {
     type : String,
@@ -73,6 +80,14 @@ export const SchemasNews =   new SimpleSchema({
   },
   "media.type" : {
     type: String,
+    optional: true
+  },
+  "media.countImages" : {
+    type: String,
+    optional: true
+  },
+  "media.images" : {
+    type: [String],
     optional: true
   },
   "media.content" : {
@@ -135,6 +150,7 @@ News.deny({
   //collection
   if(Meteor.isClient){
     import { Photosimg } from './client/photosimg.js'
+    import { Documents } from './documents.js';
     import { Citoyens } from './citoyens.js'
     News.helpers({
       authorNews () {
@@ -143,6 +159,14 @@ News.deny({
       photoNews () {
         if(this.media && this.media.content && this.media.content.imageId){
         return Photosimg.find({_id:this.media.content.imageId});
+      }
+      },
+      photoNewsAlbums () {
+        if(this.media && this.media.images){
+          let arrayId = this.media.images.map((_id) => {
+            return new Mongo.ObjectID(_id)
+          })
+        return Documents.find({_id: { $in: arrayId }}).fetch();
       }
       },
       likesCount () {

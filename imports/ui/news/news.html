@@ -23,16 +23,20 @@
     {{#if Template.subscriptionsReady}}
     {{#transition in="zoomIn" out="bounceOut"}}
     {{#each scope.news}}
-    <a href="{{pathFor 'newsDetail' _id=scope._id._str newsId=_id._str scope=target.type}}" class="item animated in {{#if photoNews}}item-thumbnail-left{{else}}{{#if imageDoc authorNews._id._str}}item-avatar{{/if}}{{/if}}">
+    <a href="{{pathFor 'newsDetail' _id=scope._id._str newsId=_id._str scope=target.type}}" class="item animated in {{#if photoNews}}item-thumbnail-left{{else}}{{#if photoNewsAlbums.[0].name}}item-thumbnail-left{{else}}{{#if imageDoc authorNews._id._str}}item-avatar{{/if}}{{/if}}{{/if}}">
 
       {{#each photoNews}}
       <img src="{{urlImageDesktop}}{{this.url store='photosLarge' uploading='/default.png' storing='/default.png'}}"  />
+      {{else}}
+      {{#if photoNewsAlbums.[0].name}}
+      {{> imgDoc imageDoc=photoNewsAlbums.[0] resized="80x80"}}
       {{else}}
       {{#if imageDoc}}
       {{> imgDoc imageDoc=imageDoc resized="80x80"}}
       {{else}}
       {{#if imageDoc authorNews._id._str}}
       {{> imgDoc imageDoc=(imageDoc authorNews._id._str) resized="80X80"}}
+      {{/if}}
       {{/if}}
       {{/if}}
       {{/each}}
