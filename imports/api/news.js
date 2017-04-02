@@ -27,6 +27,14 @@ export const SchemasNewsRest =   new SimpleSchema({
     type: String,
     optional: true
   },
+  "media.countImages" : {
+    type: String,
+    optional: true
+  },
+  "media.images" : {
+    type: [String],
+    optional: true
+  },
   "media.content" : {
     type: Object,
     optional: true
@@ -57,7 +65,6 @@ export const SchemasNewsRest =   new SimpleSchema({
   }
 });
 
-
 export const SchemasNews =   new SimpleSchema({
   text : {
     type : String,
@@ -73,6 +80,14 @@ export const SchemasNews =   new SimpleSchema({
   },
   "media.type" : {
     type: String,
+    optional: true
+  },
+  "media.countImages" : {
+    type: String,
+    optional: true
+  },
+  "media.images" : {
+    type: [String],
     optional: true
   },
   "media.content" : {
