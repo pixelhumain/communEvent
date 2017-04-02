@@ -135,6 +135,7 @@ News.deny({
   //collection
   if(Meteor.isClient){
     import { Photosimg } from './client/photosimg.js'
+    import { Documents } from './documents.js';
     import { Citoyens } from './citoyens.js'
     News.helpers({
       authorNews () {
@@ -143,6 +144,14 @@ News.deny({
       photoNews () {
         if(this.media && this.media.content && this.media.content.imageId){
         return Photosimg.find({_id:this.media.content.imageId});
+      }
+      },
+      photoNewsAlbums () {
+        if(this.media && this.media.images){
+          let arrayId = this.media.images.map((_id) => {
+            return new Mongo.ObjectID(_id)
+          })
+        return Documents.find({_id: { $in: arrayId }}).fetch();
       }
       },
       likesCount () {

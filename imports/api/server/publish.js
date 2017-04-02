@@ -313,6 +313,18 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 									});
 								}
 							}
+						},
+						{
+							find: function(news) {
+								if(news.media && news.media.images){
+									let arrayId = news.media.images.map((_id) => {
+										return new Mongo.ObjectID(_id)
+									})
+									return Documents.find({
+										_id : { $in: arrayId }
+									});
+								}
+							}
 						}
 					]
 				}
@@ -345,6 +357,18 @@ Meteor.publishComposite('citoyenEvents', function(latlng,radius) {
 								if(news.media && news.media.content && news.media.content.imageId){
 									return Photosimg.find({
 										_id:news.media.content.imageId
+									});
+								}
+							}
+						},
+						{
+							find: function(news) {
+								if(news.media && news.media.images){
+									let arrayId = news.media.images.map((_id) => {
+										return new Mongo.ObjectID(_id)
+									})
+									return Documents.find({
+										_id : { $in: arrayId }
 									});
 								}
 							}

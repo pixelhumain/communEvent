@@ -284,6 +284,98 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error("not-authorized");
     }
+    //savoir qui peut poster une photo sur l'event
+    /*if (!Events.findOne({_id:new Mongo.ObjectID(idType)}).isAdmin()) {
+      throw new Meteor.Error("not-authorized");
+    }*/
+    let retourUpload = apiCommunecter.postUploadPixel('events',idType,'newsImage',photo,str);
+    if(retourUpload){
+      let insertDoc = {};
+      insertDoc.id = idType;
+      insertDoc.type = "events";
+      insertDoc.folder = `events/${idType}/album`;
+      insertDoc.moduleId = "communecter";
+      insertDoc.doctype = "image";
+      insertDoc.name = retourUpload.name;
+      insertDoc.size = retourUpload.size;
+      //insertDoc.date = "";
+      insertDoc.contentKey = "slider";
+      insertDoc.formOrigin = "news";
+      let  doc = apiCommunecter.postPixel("document","save",insertDoc);
+      if(doc){
+        //{"result":true,"msg":"Document bien enregistr\u00e9","id":{"$id":"58df810add04528643014012"},"name":"moon.png"}
+        let insertNew = {};
+        insertNew.parentId=idType;
+        insertNew.parentType=type;
+        insertNew.text="photo";
+        insertNew["media"]={};
+        insertNew["media"]["type"]="gallery_images";
+        insertNew["media"]["countImages"]="1";
+        insertNew["media"]["images"]=[doc.data.id["$id"]];
+        newsId = Meteor.call('insertNew',insertNew);
+        if(newsId){
+          return {photoret:doc.data.id["$id"],newsId:newsId.data.id["$id"]};
+        }else{
+          throw new Meteor.Error("photoNews error");
+        }
+      }else{
+        throw new Meteor.Error("insertDocument error");
+      }
+    }else{
+      throw new Meteor.Error("postUploadPixel error");
+    }
+  },
+  photoNewsUpdate (newsId,photoId) {
+    check(newsId, String);
+    check(photoId, String);
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+    let parentId = News.findOne({_id:new Mongo.ObjectID(newsId)}).target.id;
+    let parentType = News.findOne({_id:new Mongo.ObjectID(newsId)}).target.type;
+    let media={};
+    media["type"]="gallery_images";
+    media["countImages"]="1";
+    media["images"]=[photoId];
+    News.update({_id:new Mongo.ObjectID(newsId)},{$set:{'media':media}});
+    return photoId;
+  },
+  cfsbase64tos3up (photo,str,type,idType) {
+    check(photo, Match.Any);
+    check(str, Match.Any);
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
+    let retourUpload = apiCommunecter.postUploadPixel('events',idType,'newsImage',photo,str);
+    if(retourUpload){
+      let insertDoc = {};
+      insertDoc.id = idType;
+      insertDoc.type = "events";
+      insertDoc.folder = `events/${idType}/album`;
+      insertDoc.moduleId = "communecter";
+      insertDoc.doctype = "image";
+      insertDoc.name = retourUpload.name;
+      insertDoc.size = retourUpload.size;
+      //insertDoc.date = "";
+      insertDoc.contentKey = "slider";
+      insertDoc.formOrigin = "news";
+      let  doc = apiCommunecter.postPixel("document","save",insertDoc);
+      if(doc){
+        return doc.data.id["$id"]
+      }else{
+        throw new Meteor.Error("insertDocument error");
+      }
+    }else{
+      throw new Meteor.Error("postUploadPixel error");
+    }
+  },
+  photoNewsOld (photo,str,type,idType) {
+    check(str, String);
+    check(type, String);
+    check(idType, String);
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     var newsId;
     var photoret = Meteor.call('cfsbase64tos3up',photo,str,type,idType);
     let insertNew = {};
@@ -328,7 +420,7 @@ Meteor.methods({
       throw new Meteor.Error("photoNews error");
     }
   },
-  photoNewsUpdate (newsId,photoId) {
+  photoNewsUpdateOld (newsId,photoId) {
     check(newsId, String);
     check(photoId, String);
     if (!this.userId) {
@@ -365,7 +457,7 @@ Meteor.methods({
 
     return image._id;
   },
-  cfsbase64tos3up (photo,str,type,idType) {
+  cfsbase64tos3upOld (photo,str,type,idType) {
     check(photo, Match.Any);
     check(str, Match.Any);
     if (!this.userId) {
